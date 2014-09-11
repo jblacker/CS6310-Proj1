@@ -1,4 +1,4 @@
-package edu.gatech.omscs.cs6310.interfaces;
+package edu.gatech.omscs.cs6310.Interfaces;
 
 public class PlateNotInitializedException extends Exception {
 
