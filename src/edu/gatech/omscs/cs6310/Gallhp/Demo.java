@@ -1,7 +1,6 @@
 package edu.gatech.omscs.cs6310.Gallhp;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -10,20 +9,30 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+
+import java.awt.Dialog.ModalityType;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 
-public class Demo {
+public class Demo implements ActionListener{
 
 	private JFrame frame;
 	private JTextField tfDimensions;
+	private JComboBox cbCompType;
+	private JSpinner spinRight;
+	private JSpinner spinLeft;
+	private JSpinner spinTop;
+	private JSpinner spinBottom;
 
 	/**
 	 * Launch the application.
@@ -64,15 +73,34 @@ public class Demo {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmClear = new JMenuItem("Clear");
+		mntmClear.setActionCommand("Clear");
+		mntmClear.addActionListener(this);
 		mnFile.add(mntmClear);
 		
 		JMenuItem mntmQuit = new JMenuItem("Quit");
+		
+		mntmQuit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 		mnFile.add(mntmQuit);
 		
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
 		
 		JMenuItem mntmAbout = new JMenuItem("About");
+		mntmAbout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				AboutDialog about = new AboutDialog();
+				about.setModalityType(ModalityType.APPLICATION_MODAL);
+				about.setVisible(true);
+			}
+		});
 		mnHelp.add(mntmAbout);
 		
 		JPanel settingPanel = new JPanel();
@@ -92,15 +120,16 @@ public class Demo {
 		gbc_lblComputationType.gridy = 0;
 		settingPanel.add(lblComputationType, gbc_lblComputationType);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(ComputationType.values()));
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 2;
-		gbc_comboBox.insets = new Insets(5, 5, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 0;
-		settingPanel.add(comboBox, gbc_comboBox);
+		cbCompType = new JComboBox();
+		cbCompType.setModel(new DefaultComboBoxModel(ComputationType.values()));
+		GridBagConstraints gbc_cbCompType = new GridBagConstraints();
+		gbc_cbCompType.gridwidth = 2;
+		gbc_cbCompType.insets = new Insets(5, 5, 5, 5);
+		gbc_cbCompType.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbCompType.gridx = 2;
+		gbc_cbCompType.gridy = 0;
+		cbCompType.setSelectedIndex(-1);
+		settingPanel.add(cbCompType, gbc_cbCompType);
 		
 		JLabel lblDimensions = new JLabel("Dimensions");
 		GridBagConstraints gbc_lblDimensions = new GridBagConstraints();
@@ -128,7 +157,7 @@ public class Demo {
 		gbc_lblLeft.gridy = 1;
 		settingPanel.add(lblLeft, gbc_lblLeft);
 		
-		JSpinner spinLeft = new JSpinner();
+		spinLeft = new JSpinner();
 		spinLeft.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		GridBagConstraints gbc_spinLeft = new GridBagConstraints();
 		gbc_spinLeft.insets = new Insets(0, 5, 5, 5);
@@ -144,7 +173,7 @@ public class Demo {
 		gbc_lblRight.gridy = 1;
 		settingPanel.add(lblRight, gbc_lblRight);
 		
-		JSpinner spinRight = new JSpinner();
+		spinRight = new JSpinner();
 		spinRight.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		GridBagConstraints gbc_spinRight = new GridBagConstraints();
 		gbc_spinRight.insets = new Insets(0, 5, 5, 5);
@@ -159,7 +188,7 @@ public class Demo {
 		gbc_lblTop.gridy = 1;
 		settingPanel.add(lblTop, gbc_lblTop);
 		
-		JSpinner spinTop = new JSpinner();
+		spinTop = new JSpinner();
 		lblTop.setLabelFor(spinTop);
 		spinTop.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		GridBagConstraints gbc_spinTop = new GridBagConstraints();
@@ -175,7 +204,7 @@ public class Demo {
 		gbc_lblBottom.gridy = 1;
 		settingPanel.add(lblBottom, gbc_lblBottom);
 		
-		JSpinner spinBottom = new JSpinner();
+		spinBottom = new JSpinner();
 		spinBottom.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		lblBottom.setLabelFor(spinBottom);
 		GridBagConstraints gbc_spinBottom = new GridBagConstraints();
@@ -196,4 +225,15 @@ public class Demo {
 		frame.getContentPane().add(displayPanel, BorderLayout.CENTER);
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand() == "Clear") {
+			this.cbCompType.setSelectedIndex(-1);
+			this.tfDimensions.setText("");
+			this.spinRight.setValue(new Integer(0));
+			this.spinLeft.setValue(new Integer(0));
+			this.spinTop.setValue(new Integer(0));
+			this.spinBottom.setValue(new Integer(0));
+		}
+	}
 }
