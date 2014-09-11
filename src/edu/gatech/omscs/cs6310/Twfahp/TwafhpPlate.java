@@ -2,10 +2,20 @@ package edu.gatech.omscs.cs6310.Twfahp;
 
 import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
 
-public class Twafhp implements HeatedPlate {
+public class TwafhpPlate implements HeatedPlate {
 
-	public Twafhp() {
-		
+	private int dimension;
+	private int leftEdgeTemp;
+	private int rightEdgeTemp;
+	private int topEdgeTemp;
+	private int bottomEdgeTemp;
+	
+	public TwafhpPlate(int dimension, int leftEdgeTemp, int rightEdgeTemp, int topEdgeTemp, int bottomEdgeTemp) {
+		this.dimension = dimension;
+		this.leftEdgeTemp = leftEdgeTemp;
+		this.rightEdgeTemp = rightEdgeTemp;
+		this.topEdgeTemp = topEdgeTemp;
+		this.bottomEdgeTemp = bottomEdgeTemp;		
 	}
 	
 	/* (non-Javadoc)
@@ -13,8 +23,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public int getDimension() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.dimension;
 	}
 
 	/* (non-Javadoc)
@@ -22,8 +31,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public void setDimension(int dimension) {
-		// TODO Auto-generated method stub
-
+		this.dimension = dimension;
 	}
 
 	/* (non-Javadoc)
@@ -31,8 +39,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public int getLeftEdgeTemp() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.leftEdgeTemp;
 	}
 
 	/* (non-Javadoc)
@@ -40,8 +47,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public void setLeftEdgeTemp(int temp) {
-		// TODO Auto-generated method stub
-
+		this.leftEdgeTemp = temp;
 	}
 
 	/* (non-Javadoc)
@@ -49,8 +55,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public int getRightEdgeTemp() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.rightEdgeTemp;
 	}
 
 	/* (non-Javadoc)
@@ -58,8 +63,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public void setRightEdgeTemp(int temp) {
-		// TODO Auto-generated method stub
-
+		this.rightEdgeTemp = temp;
 	}
 
 	/* (non-Javadoc)
@@ -67,8 +71,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public int getTopEdgeTemp() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.topEdgeTemp;
 	}
 
 	/* (non-Javadoc)
@@ -76,8 +79,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public void setTopEdgeTemp(int temp) {
-		// TODO Auto-generated method stub
-
+		this.topEdgeTemp = temp;
 	}
 
 	/* (non-Javadoc)
@@ -85,8 +87,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public int getBottomEdgeTemp() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.bottomEdgeTemp;
 	}
 
 	/* (non-Javadoc)
@@ -94,8 +95,7 @@ public class Twafhp implements HeatedPlate {
 	 */
 	@Override
 	public void setBottomEdgeTemp(int temp) {
-		// TODO Auto-generated method stub
-
+		this.bottomEdgeTemp = temp;
 	}
 
 	/* (non-Javadoc)
