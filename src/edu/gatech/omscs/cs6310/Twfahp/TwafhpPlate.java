@@ -10,6 +10,10 @@ public class TwafhpPlate implements HeatedPlate {
 	private int topEdgeTemp;
 	private int bottomEdgeTemp;
 	
+	public TwafhpPlate() {
+		
+	}
+	
 	public TwafhpPlate(int dimension, int leftEdgeTemp, int rightEdgeTemp, int topEdgeTemp, int bottomEdgeTemp) {
 		this.dimension = dimension;
 		this.leftEdgeTemp = leftEdgeTemp;
