@@ -1,5 +1,7 @@
 package edu.gatech.omscs.cs6310.Tpfahp;
 
+import edu.gatech.omscs.cs6310.Interfaces.CliDisplay;
+
 public class Demo {
 
 	/**
@@ -82,6 +84,7 @@ public class Demo {
 			}
 		}
 		
-		//TODO: Calculate & Display
+		CliDisplay.displayHeatedPlate(heatedPlate);
+		System.out.format("Took % ns to calculate diffusion");
 	}
 }
