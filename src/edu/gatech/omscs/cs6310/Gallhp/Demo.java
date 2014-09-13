@@ -27,7 +27,7 @@ public class Demo implements ActionListener{
 
 	private JFrame frame;
 	private JTextField tfDimensions;
-	private JComboBox cbCompType;
+	private JComboBox<?> cbCompType;
 	private JSpinner spinRight;
 	private JSpinner spinLeft;
 	private JSpinner spinTop;
@@ -119,8 +119,7 @@ public class Demo implements ActionListener{
 		gbc_lblComputationType.gridy = 0;
 		settingPanel.add(lblComputationType, gbc_lblComputationType);
 		
-		cbCompType = new JComboBox();
-		cbCompType.setModel(new DefaultComboBoxModel(ComputationType.values()));
+		cbCompType = new JComboBox<ComputationType>(ComputationType.values());
 		GridBagConstraints gbc_cbCompType = new GridBagConstraints();
 		gbc_cbCompType.gridwidth = 2;
 		gbc_cbCompType.insets = new Insets(5, 5, 5, 5);
