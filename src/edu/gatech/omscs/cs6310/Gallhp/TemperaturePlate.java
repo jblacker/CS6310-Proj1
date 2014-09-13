@@ -27,6 +27,7 @@ public class TemperaturePlate extends JPanel {
 		JLabel tempLabel = new JLabel(String.format("%.2f", temp), SwingConstants.CENTER);
 		Font labelFont = tempLabel.getFont();
 		tempLabel.setFont(labelFont.deriveFont(labelFont.getStyle() | Font.BOLD));
+		tempLabel.setForeground(Color.WHITE);
 		
 		this.add(tempLabel, BorderLayout.CENTER);
 	}

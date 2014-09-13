@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
 import java.awt.Dialog.ModalityType;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
