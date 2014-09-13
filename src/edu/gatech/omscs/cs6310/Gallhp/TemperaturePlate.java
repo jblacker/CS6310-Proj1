@@ -11,6 +11,11 @@ import javax.swing.SwingConstants;
 public class TemperaturePlate extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1968715371000403908L;
+
+	/**
 	 * Create the panel.
 	 */
 	public TemperaturePlate(float temp) {
