@@ -100,7 +100,10 @@ public class TpfahpDiffusion implements HeatedPlate {
 		return null;
 	}
 	
-	public void calculateDiffusion() {
+	public void calculateDiffusion() throws PlateNotInitializedException {
+		if(this.dimensions == 0)
+			throw new PlateNotInitializedException("Dimentions must be set");
+		
 		long startTime = System.nanoTime();
 		
 		float[][] newPlate = createAndInitializePlate();
@@ -122,8 +125,8 @@ public class TpfahpDiffusion implements HeatedPlate {
 		}
 		while(difference >= MINIMUM_DIFFERENCE || iterations < MAXIMUM_ITERATIONS);
 		
-		this.lastRunTime = System.nanoTime() - startTime;
 		this.latticePoints = newPlate;
+		this.lastRunTime = System.nanoTime() - startTime;
 	}
 	
 	private float[][] createAndInitializePlate() {
