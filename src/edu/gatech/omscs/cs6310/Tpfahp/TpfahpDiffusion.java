@@ -84,8 +84,9 @@ public class TpfahpDiffusion implements HeatedPlate {
 		this.initBottomEdgeTemp = temp;
 
 	}
-
-	public long getLastRunTime() {
+	
+	@Override
+	public long getCalculationTime() {
 		return this.lastRunTime;
 	}
 	
