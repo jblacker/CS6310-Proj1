@@ -72,4 +72,10 @@ public interface HeatedPlate {
 	 * @return Two-Dimensional Array of boxed <code>Floats</floats> representing the lattice points of the diffusion equation 
 	 */
 	public Float[][] calculateLatticePoints();
+	
+	/**
+	 * Gets the amount of time in nanoseconds that the diffusion calculation took
+	 * @return Amount of time in nanoseconds
+	 */
+	public long getCalculationTime();
 }
