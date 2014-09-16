@@ -12,9 +12,9 @@ public class CliDisplay {
 		try {
 			List<List<Number>> results = plate.calculateLatticePoints();
 			System.out.println("");
-			for(int x = 1; x < results.size()-2; x++) {
-				for(int y = 1; y < results.get(x).size()-2; y++) {
-					System.out.format("  %.2f  ", results.get(x).get(y).floatValue());
+			for(int x = 1; x < results.size()-1; x++) {
+				for(int y = 1; y < results.get(x).size()-1; y++) {
+					System.out.format("%10.2f", results.get(x).get(y).floatValue());
 				}
 				System.out.println("");
 			}
