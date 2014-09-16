@@ -29,8 +29,9 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 
 import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
+import edu.gatech.omscs.cs6310.Tpdahp.TpdahpDiffusion;
 import edu.gatech.omscs.cs6310.Tpfahp.TpfahpDiffusion;
-import edu.gatech.omscs.cs6310.Twfahp.TwafhpDiffusion;
+import edu.gatech.omscs.cs6310.Twfahp.TwfahpDiffusion;
 
 public class Demo implements ActionListener {
 
@@ -298,7 +299,7 @@ public class Demo implements ActionListener {
 			plate = new TpfahpDiffusion();
 			break;
 		case TWFAHP:
-			plate = new TwafhpDiffusion();
+			plate = new TwfahpDiffusion();
 			break;
 		default:
 			throw new InvalidApplicationException("");
