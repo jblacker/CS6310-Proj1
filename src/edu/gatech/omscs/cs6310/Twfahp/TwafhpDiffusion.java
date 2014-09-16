@@ -1,6 +1,8 @@
 package edu.gatech.omscs.cs6310.Twfahp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
 import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
@@ -78,9 +80,22 @@ public class TwafhpDiffusion implements HeatedPlate {
 		this.initBottomEdgeTemp = temp;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Float[][] calculateLatticePoints() {
-		return this.latticePoints;
+	public List<List<Float>> calculateLatticePoints() {
+		List<List<Float>> points = new ArrayList<List<Float>>();
+		
+		for (int i = 0; i < this.latticePoints.length; i++) {
+			List<Float> temp = new ArrayList<Float>(this.latticePoints[i].length);
+			
+			for (int j = 0; j < this.latticePoints[i].length; j++) {
+				temp.add(this.latticePoints[i][j]);
+			}
+			
+			points.add(temp);
+		}
+		
+		return points;
 	}
 
 	@Override
