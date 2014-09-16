@@ -15,7 +15,7 @@ public class Demo {
 			return;
 		}
 		
-		TwafhpDiffusion heatedPlate = new TwafhpDiffusion();
+		TwfahpDiffusion heatedPlate = new TwfahpDiffusion();
 		
 		for(int i = 0; i < args.length; i += 2) {
 			int temp;
