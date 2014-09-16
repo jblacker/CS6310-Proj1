@@ -114,7 +114,7 @@ public class TpfahpDiffusion implements HeatedPlate {
 	
 	public void calculateDiffusion() throws PlateNotInitializedException {
 		if(this.dimensions == 0)
-			throw new PlateNotInitializedException("Dimentions must be set");
+			throw new PlateNotInitializedException("Dimensions must be set");
 		
 		long startTime = System.nanoTime();
 		

@@ -1,10 +1,13 @@
 package edu.gatech.omscs.cs6310.Gallhp;
 
 import java.awt.EventQueue;
+
+import javax.management.InvalidApplicationException;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -17,13 +20,19 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 
-public class Demo implements ActionListener{
+import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
+import edu.gatech.omscs.cs6310.Tpfahp.TpfahpDiffusion;
+import edu.gatech.omscs.cs6310.Twfahp.TwafhpDiffusion;
+
+public class Demo implements ActionListener {
 
 	private JFrame frame;
 	private JTextField tfDimensions;
@@ -32,6 +41,7 @@ public class Demo implements ActionListener{
 	private JSpinner spinLeft;
 	private JSpinner spinTop;
 	private JSpinner spinBottom;
+	private JPanel displayPanel;
 
 	/**
 	 * Launch the application.
@@ -138,6 +148,27 @@ public class Demo implements ActionListener{
 		settingPanel.add(lblDimensions, gbc_lblDimensions);
 		
 		tfDimensions = new JTextField();
+		tfDimensions.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				
+				if(c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+					
+					if(!(c == '0' || c == '1'|| c == '2'|| c == '3'|| c == '4'|| c == '5'
+							|| c == '6'|| c == '7'|| c == '8'|| c == '9') ) {
+						
+						e.consume();
+					}
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) { }
+
+			@Override
+			public void keyReleased(KeyEvent e) { }
+		});
 		GridBagConstraints gbc_tfDimensions = new GridBagConstraints();
 		gbc_tfDimensions.gridwidth = 2;
 		gbc_tfDimensions.insets = new Insets(5, 5, 5, 5);
@@ -212,6 +243,8 @@ public class Demo implements ActionListener{
 		settingPanel.add(spinBottom, gbc_spinBottom);
 		
 		JButton btnRun = new JButton("RUN");
+		btnRun.setActionCommand("Run");
+		btnRun.addActionListener(this);
 		GridBagConstraints gbc_btnRun = new GridBagConstraints();
 		gbc_btnRun.gridheight = 2;
 		gbc_btnRun.insets = new Insets(5, 15, 5, 5);
@@ -219,19 +252,74 @@ public class Demo implements ActionListener{
 		gbc_btnRun.gridy = 0;
 		settingPanel.add(btnRun, gbc_btnRun);
 		
-		JPanel displayPanel = new JPanel();
+		displayPanel = new JPanel();
 		frame.getContentPane().add(displayPanel, BorderLayout.CENTER);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() == "Clear") {
-			this.cbCompType.setSelectedIndex(-1);
-			this.tfDimensions.setText("");
-			this.spinRight.setValue(new Integer(0));
-			this.spinLeft.setValue(new Integer(0));
-			this.spinTop.setValue(new Integer(0));
-			this.spinBottom.setValue(new Integer(0));
+			resetOptions();
 		}
+		else if(e.getActionCommand() == "Run") {
+			//add validation
+			try {
+				runSimulation();
+			} catch (InvalidApplicationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	private void resetOptions() {
+		this.cbCompType.setSelectedIndex(-1);
+		this.tfDimensions.setText("");
+		this.spinRight.setValue(new Integer(0));
+		this.spinLeft.setValue(new Integer(0));
+		this.spinTop.setValue(new Integer(0));
+		this.spinBottom.setValue(new Integer(0));
+		if(this.displayPanel.getComponentCount() > 0) {
+			this.displayPanel.removeAll();
+		}
+	}
+
+	private void runSimulation() throws InvalidApplicationException {
+		HeatedPlate plate;
+		switch((ComputationType)this.cbCompType.getSelectedItem()) {
+		
+		case TPDAHP:
+			plate = new TpdahpDiffusion();
+			break;
+		case TPDOHP:
+			plate = new TpdohpDiffusion();
+			break;
+		case TPFAHP:
+			plate = new TpfahpDiffusion();
+			break;
+		case TWFAHP:
+			plate = new TwafhpDiffusion();
+			break;
+		default:
+			throw new InvalidApplicationException("");
+			break;
+			
+		}
+		
+		try {
+			int dim = Integer.parseInt(this.tfDimensions.getText().trim());
+			plate.setDimension(dim);
+		}
+		catch(NumberFormatException ex) {
+			JOptionPane.showMessageDialog(null, "Invalid dimensions entered",
+					"Gallhp",JOptionPane.WARNING_MESSAGE);
+		}
+		
+		plate.setBottomEdgeTemp((Integer)this.spinBottom.getValue());
+		plate.setTopEdgeTemp((Integer)this.spinTop.getValue());
+		plate.setRightEdgeTemp((Integer)this.spinRight.getValue());
+		plate.setLeftEdgeTemp((Integer)this.spinLeft.getValue());
+		
+		this.displayPanel.add(new TemperatureGridPanel(plate), BorderLayout.CENTER);
 	}
 }

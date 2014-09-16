@@ -2,10 +2,12 @@ package edu.gatech.omscs.cs6310.Gallhp;
 
 
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
+import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
 public class TemperatureGridPanel extends JPanel {
 
@@ -17,10 +19,15 @@ public class TemperatureGridPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public TemperatureGridPanel(HeatedPlate plate) {
+	public TemperatureGridPanel(HeatedPlate plate) throws PlateNotInitializedException {
 		this.setLayout(new GridLayout(plate.getDimension(), plate.getDimension()));
-		
-		//TODO:  Once decided on interface signatures generate plates & display in grid
+		List<List<Number>> results = plate.calculateLatticePoints();
+		System.out.println("");
+		for(int x = 1; x < results.size()-1; x++) {
+			for(int y = 1; y < results.get(x).size()-1; y++) {
+				this.add(new TemperaturePlate(results.get(x).get(y).floatValue()));
+			}
+		}
 	}
 
 }
