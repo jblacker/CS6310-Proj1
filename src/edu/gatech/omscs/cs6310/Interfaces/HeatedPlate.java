@@ -73,7 +73,7 @@ public interface HeatedPlate {
 	 * @exception PlateNotInitializedException Thrown if one or more edges are not initialized
 	 * @return Two-Dimensional Array of boxed <code>Floats</floats> representing the lattice points of the diffusion equation 
 	 */
-	public <T extends Number> List<List<T>> calculateLatticePoints();
+	public <T extends Number> List<List<T>> calculateLatticePoints() throws PlateNotInitializedException;
 	
 	/**
 	 * Gets the amount of time in nanoseconds that the diffusion calculation took
