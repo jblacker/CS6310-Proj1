@@ -1,13 +1,15 @@
 package edu.gatech.omscs.cs6310.Tpfahp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
 import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
 public class TpfahpDiffusion implements HeatedPlate {
 	
-	private final int MAXIMUM_ITERATIONS = 150;
+	private final int MAXIMUM_ITERATIONS = 15000;
 	private final float MINIMUM_DIFFERENCE = 0.001f; 
 	
 	private int dimensions;
@@ -94,10 +96,20 @@ public class TpfahpDiffusion implements HeatedPlate {
 		return this.latticePoints;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Float[][] calculateLatticePoints() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<List<Float>> calculateLatticePoints() throws PlateNotInitializedException {
+		calculateDiffusion();
+		List<List<Float>> points = new ArrayList<List<Float>>();
+		for(int x = 0; x < latticePoints.length; x++) {
+			List<Float> temp = new ArrayList<Float>(latticePoints[x].length);
+			for(float f : latticePoints[x]) {
+				temp.add(new Float(f));
+			}
+			points.add(temp);
+		}
+		
+		return points;
 	}
 	
 	public void calculateDiffusion() throws PlateNotInitializedException {
@@ -112,16 +124,17 @@ public class TpfahpDiffusion implements HeatedPlate {
 		float difference;
 		int iterations = 0;
 		do {
-			for (int x = 1; x < dimensions; x++) {
-				for (int y = 1; y < dimensions; y++) {
+			for (int x = 1; x <= dimensions; x++) {
+				for (int y = 1; y <= dimensions; y++) {
 					newPlate[x][y] = (oldPlate[x + 1][y] + oldPlate[x - 1][y] +
 							oldPlate[x][y + 1] + oldPlate[x][y - 1]) / 4f;
 				}
 			}
 			
-			difference = newPlate[2][2] - oldPlate[2][2];
+			difference = this.getTempDifference(newPlate, oldPlate);
 			
 			oldPlate = deepCopySwap(newPlate);
+			iterations++;
 		}
 		while(difference >= MINIMUM_DIFFERENCE || iterations < MAXIMUM_ITERATIONS);
 		
@@ -144,6 +157,13 @@ public class TpfahpDiffusion implements HeatedPlate {
 			plate[dimensions + 1][i] = initRightEdgeTemp;
 		}
 		
+		//Initialize Inner Plate
+		for(int i = 1; i <= this.dimensions; i++) {
+			for (int j = 1; j <= this.dimensions; j++) {
+				plate[i][j] = 0f;
+			}
+		}
+		
 		return plate;
 	}
 	
@@ -156,5 +176,18 @@ public class TpfahpDiffusion implements HeatedPlate {
 		}
 		
 		return result;
+	}
+	
+	private float getTempDifference(float[][] newPlate, float[][] oldPlate) {
+		float totalNewTemp = 0f, totalOldTemp = 0f;
+		
+		for (int i = 1; i <= this.dimensions; i++) {
+			for (int j = 1; j <= this.dimensions; j++) {
+				totalNewTemp += newPlate[i][j];
+				totalOldTemp += oldPlate[i][j];
+	        }
+		}
+		
+		return totalNewTemp - totalOldTemp;
 	}
 }

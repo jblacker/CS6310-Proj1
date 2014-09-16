@@ -39,7 +39,7 @@ public class Demo {
 				}
 				case "-l":
 				case "-L":
-					if(temp > 100 || temp < 0) {
+					if(temp < 100 || temp > 0) {
 						heatedPlate.setLeftEdgeTemp(temp);
 						break;
 					}
@@ -50,7 +50,7 @@ public class Demo {
 					}
 				case "-r":
 				case "-R":
-					if(temp > 100 || temp < 0) {
+					if(temp < 100 || temp > 0) {
 						heatedPlate.setRightEdgeTemp(temp);
 						break;
 					}
@@ -61,7 +61,7 @@ public class Demo {
 					}
 				case "-b":
 				case "-B":
-					if(temp > 100 || temp < 0) {
+					if(temp < 100 || temp > 0) {
 						heatedPlate.setBottomEdgeTemp(temp);
 						break;
 					}
@@ -72,7 +72,7 @@ public class Demo {
 					}
 				case "-t":
 				case "-T":
-					if(temp > 100 || temp < 0) {
+					if(temp < 100 || temp > 0) {
 						heatedPlate.setTopEdgeTemp(temp);
 						break;
 					}
@@ -85,6 +85,6 @@ public class Demo {
 		}
 		
 		CliDisplay.displayHeatedPlate(heatedPlate);
-		System.out.format("Took % ns to calculate diffusion");
+		System.out.format("Took %d ns to calculate diffusion", heatedPlate.getCalculationTime());
 	}
 }
