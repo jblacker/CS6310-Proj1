@@ -9,6 +9,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -31,6 +33,7 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 
 import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
+import edu.gatech.omscs.cs6310.Interfaces.MemInfo;
 import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 import edu.gatech.omscs.cs6310.Tpdahp.TpdahpDiffusion;
 import edu.gatech.omscs.cs6310.Tpfahp.TpfahpDiffusion;
@@ -48,6 +51,7 @@ public class Demo implements ActionListener {
 	private TemperatureGridPanel display;
 	private JLabel lblCompletionTime;
 	private JLabel lblIterationCount;
+	private JLabel lblMemoryUsage;
 
 	/**
 	 * Launch the application.
@@ -259,14 +263,19 @@ public class Demo implements ActionListener {
 		settingPanel.add(btnRun, gbc_btnRun);
 		
 		JPanel metricsPanel = new JPanel();
-		metricsPanel.setLayout(new GridLayout(1,2));
+		metricsPanel.setLayout(new GridLayout(1,3));
 		frame.getContentPane().add(metricsPanel, BorderLayout.SOUTH);
 		
 		lblCompletionTime = new JLabel("Calculation Time: - ns");
 		metricsPanel.add(lblCompletionTime);
 		
 		lblIterationCount = new JLabel("Iterations Used: -");
+		lblIterationCount.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIterationCount.setHorizontalTextPosition(SwingConstants.CENTER);
 		metricsPanel.add(lblIterationCount);
+		
+		lblMemoryUsage = new JLabel("Memory Usage: - MB");
+		metricsPanel.add(lblMemoryUsage);
 	}
 
 	@Override
@@ -294,6 +303,7 @@ public class Demo implements ActionListener {
 		this.spinBottom.setValue(new Integer(0));
 		this.lblCompletionTime.setText("Calculation Time: - ns");
 		this.lblIterationCount.setText("Iterations Used: -");
+		this.lblMemoryUsage.setText("Memory Usage: - MB");
 		
 		if(display != null) {
 			this.frame.getContentPane().remove(display);
@@ -343,6 +353,7 @@ public class Demo implements ActionListener {
 			display = new TemperatureGridPanel(plate);
 			this.lblIterationCount.setText(String.format("Iterations Used: %d", plate.getIterationsUsed()));
 			this.lblCompletionTime.setText(String.format("Calculation Time: %d ns", plate.getCalculationTime()));
+			this.lblMemoryUsage.setText(String.format("Memory Usage: %d MB", MemInfo.getCurrentMemoryUsage()));
 			frame.getContentPane().add(display, BorderLayout.CENTER);
 			frame.revalidate();
 			frame.repaint();

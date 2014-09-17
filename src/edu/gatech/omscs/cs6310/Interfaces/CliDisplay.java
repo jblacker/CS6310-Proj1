@@ -17,6 +17,9 @@ public class CliDisplay {
 					System.out.format("%10.2f", results.get(x).get(y).floatValue());
 				}
 				System.out.println("");
+				System.out.format("Calculation Time: %d ns %n", plate.getCalculationTime());
+				System.out.format("Iterations Used: %d%n", plate.getIterationsUsed());
+				System.out.format("Memory Usage: %d MB %n", MemInfo.getCurrentMemoryUsage());
 			}
 		}
 		catch(PlateNotInitializedException ex) {
