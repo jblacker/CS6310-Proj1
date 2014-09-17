@@ -18,6 +18,5 @@ public class Demo {
 		heatedPlate.initialize(args);
 		
 		CliDisplay.displayHeatedPlate(heatedPlate);
-		System.out.format("Took %d ns to calculate diffusion", heatedPlate.getCalculationTime());
 	}
 }
