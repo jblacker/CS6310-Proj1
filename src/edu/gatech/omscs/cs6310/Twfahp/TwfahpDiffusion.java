@@ -82,18 +82,14 @@ public class TwfahpDiffusion implements HeatedPlate {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<List<Float>> calculateLatticePoints() {
+	public List<List<Float>> calculateLatticePoints() throws PlateNotInitializedException {
+		
+		this.calculateDiffusion();
 		List<List<Float>> points = new ArrayList<List<Float>>();
 		
-		for (int i = 0; i < this.latticePoints.length; i++) {
-			List<Float> temp = new ArrayList<Float>(this.latticePoints[i].length);
-			
-			for (int j = 0; j < this.latticePoints[i].length; j++) {
-				temp.add(this.latticePoints[i][j]);
+		for (Float[] axis : this.latticePoints) {
+				points.add(Arrays.asList(axis));
 			}
-			
-			points.add(temp);
-		}
 		
 		return points;
 	}
