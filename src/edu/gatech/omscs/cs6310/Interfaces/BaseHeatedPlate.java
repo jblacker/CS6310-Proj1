@@ -2,7 +2,7 @@ package edu.gatech.omscs.cs6310.Interfaces;
 
 public abstract class BaseHeatedPlate implements HeatedPlate {
 	
-	protected final int MAXIMUM_ITERATIONS = 150;	
+	protected final int MAXIMUM_ITERATIONS = 15000;	
 	
 	/* Number of dimensions to split the plate into */
 	protected int dimension;
