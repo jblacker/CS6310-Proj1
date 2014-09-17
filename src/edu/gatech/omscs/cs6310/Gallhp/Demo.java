@@ -15,6 +15,8 @@ import javax.swing.JComboBox;
 
 import java.awt.Dialog.ModalityType;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -44,6 +46,8 @@ public class Demo implements ActionListener {
 	private JSpinner spinTop;
 	private JSpinner spinBottom;
 	private TemperatureGridPanel display;
+	private JLabel lblCompletionTime;
+	private JLabel lblIterationCount;
 
 	/**
 	 * Launch the application.
@@ -254,6 +258,15 @@ public class Demo implements ActionListener {
 		gbc_btnRun.gridy = 0;
 		settingPanel.add(btnRun, gbc_btnRun);
 		
+		JPanel metricsPanel = new JPanel();
+		metricsPanel.setLayout(new GridLayout(1,2));
+		frame.getContentPane().add(metricsPanel, BorderLayout.SOUTH);
+		
+		lblCompletionTime = new JLabel("Calculation Time: - ns");
+		metricsPanel.add(lblCompletionTime);
+		
+		lblIterationCount = new JLabel("Iterations Used: -");
+		metricsPanel.add(lblIterationCount);
 	}
 
 	@Override
@@ -279,6 +292,8 @@ public class Demo implements ActionListener {
 		this.spinLeft.setValue(new Integer(0));
 		this.spinTop.setValue(new Integer(0));
 		this.spinBottom.setValue(new Integer(0));
+		this.lblCompletionTime.setText("Calculation Time: - ns");
+		this.lblIterationCount.setText("Iterations Used: -");
 		
 		if(display != null) {
 			this.frame.getContentPane().remove(display);
@@ -307,7 +322,7 @@ public class Demo implements ActionListener {
 			plate = new TwfahpDiffusion();
 			break;
 		default:
-			throw new InvalidApplicationException("");
+			throw new InvalidApplicationException("Unknown Computation Type");
 			
 		}
 		
@@ -326,6 +341,8 @@ public class Demo implements ActionListener {
 		plate.setLeftEdgeTemp((Integer)this.spinLeft.getValue());
 		try {
 			display = new TemperatureGridPanel(plate);
+			this.lblIterationCount.setText(String.format("Iterations Used: %d", plate.getIterationsUsed()));
+			this.lblCompletionTime.setText(String.format("Calculation Time: %d ns", plate.getCalculationTime()));
 			frame.getContentPane().add(display, BorderLayout.CENTER);
 			frame.revalidate();
 			frame.repaint();
