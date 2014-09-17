@@ -8,10 +8,6 @@ import edu.gatech.omscs.cs6310.Interfaces.BaseHeatedPlate;
 import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
 public class TpfahpDiffusion extends BaseHeatedPlate {
-	
-	private final int MAXIMUM_ITERATIONS = 150000;
-
-	private final float MINIMUM_DIFFERENCE = 0.001f; 
 		
 	private float[][] latticePoints;	
 		

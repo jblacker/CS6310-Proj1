@@ -11,13 +11,8 @@ import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
  * Calculate diffusion of temperature on a plate using Floats 
  */
 public class TwfahpDiffusion extends BaseHeatedPlate {
-
-	/* Maximum number of iterations that can be performed. Used to avoid an infinite loop */
-	private final int MAXIMUM_ITERATIONS = 150000;	
-	private final Float MINIMUM_DIFFERENCE = 0.001F;
 	
-	private Float[][] latticePoints;
-	
+	private Float[][] latticePoints;	
 	
 	@SuppressWarnings("unchecked")
 	@Override
