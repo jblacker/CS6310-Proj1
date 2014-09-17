@@ -74,7 +74,9 @@ public class TpdahpDiffusion implements HeatedPlate {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<List<Double>> calculateLatticePoints() {
+	public List<List<Double>> calculateLatticePoints() throws PlateNotInitializedException {
+		this.calculateDiffusion();
+		
 		List<List<Double>> points = new ArrayList<List<Double>>();
 		
 		for (int i = 0; i < this.latticePoints.length; i++) {
