@@ -19,6 +19,7 @@ public class TpdahpDiffusion implements HeatedPlate {
 	private int initBottomEdgeTemp;
 	
 	private long lastRunTime;
+	private int lastIterationCount;
 	
 	private double[][] latticePoints;
 	
@@ -97,6 +98,11 @@ public class TpdahpDiffusion implements HeatedPlate {
 		return this.lastRunTime;
 	}
 	
+	@Override
+	public int getIterationsUsed() {
+		return this.lastIterationCount;
+	}
+	
 	public void calculateDiffusion() throws PlateNotInitializedException {
 		if(this.dimension == 0) {
 			throw new PlateNotInitializedException("Dimensions must be set");
@@ -128,6 +134,7 @@ public class TpdahpDiffusion implements HeatedPlate {
 		
 		this.latticePoints = newPlate;
 		this.lastRunTime = System.nanoTime() - startTime;
+		this.lastIterationCount = iterations;
 	}
 	
 	private double[][] initializePlate() {

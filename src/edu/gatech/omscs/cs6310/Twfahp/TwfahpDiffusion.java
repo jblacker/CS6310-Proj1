@@ -19,6 +19,7 @@ public class TwfahpDiffusion implements HeatedPlate {
 	private int initBottomEdgeTemp;
 	
 	private long lastRunTime;
+	private int lastIterationCount;
 	
 	private Float[][] latticePoints;
 	
@@ -99,6 +100,11 @@ public class TwfahpDiffusion implements HeatedPlate {
 		return this.lastRunTime;
 	}
 	
+	@Override
+	public int getIterationsUsed() {
+		return this.lastIterationCount;
+	}
+	
 	public void calculateDiffusion() throws PlateNotInitializedException {
 		if(this.dimension == 0) {
 			throw new PlateNotInitializedException("Dimensions must be set");
@@ -130,6 +136,7 @@ public class TwfahpDiffusion implements HeatedPlate {
 		
 		this.latticePoints = newPlate;
 		this.lastRunTime = System.nanoTime() - startTime;
+		this.lastIterationCount = iterations;
 	}
 	
 	private Float[][] initializePlate() {

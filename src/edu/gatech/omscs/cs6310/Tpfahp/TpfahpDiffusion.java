@@ -19,6 +19,7 @@ public class TpfahpDiffusion implements HeatedPlate {
 	private int initLeftEdgeTemp;
 	
 	private long lastRunTime;
+	private int lastIterationCount;
 	
 	private float[][] latticePoints;	
 	
@@ -92,6 +93,11 @@ public class TpfahpDiffusion implements HeatedPlate {
 		return this.lastRunTime;
 	}
 	
+	@Override
+	public int getIterationsUsed() {
+		return this.lastIterationCount;
+	}
+	
 	public float[][] getCalculatedDiffusion() {
 		return this.latticePoints;
 	}
@@ -140,6 +146,7 @@ public class TpfahpDiffusion implements HeatedPlate {
 		
 		this.latticePoints = newPlate;
 		this.lastRunTime = System.nanoTime() - startTime;
+		this.lastIterationCount = iterations;
 	}
 	
 	private float[][] createAndInitializePlate() {

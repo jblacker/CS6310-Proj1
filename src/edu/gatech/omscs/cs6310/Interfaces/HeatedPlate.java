@@ -80,4 +80,10 @@ public interface HeatedPlate {
 	 * @return Amount of time in nanoseconds
 	 */
 	public long getCalculationTime();
+	
+	/**
+	 * Gets the amount of iterations used to calculate the lattice points
+	 * @return Amount of iterations
+	 */
+	public int getIterationsUsed();
 }
