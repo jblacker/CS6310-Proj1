@@ -133,7 +133,7 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 	 * @return
 	 * Returns the difference in total temperature as a Float
 	 */
-	private Float getTempDifference(Float[][] newPlate, Float[][] oldPlate) {
+	private double getTempDifference(Float[][] newPlate, Float[][] oldPlate) {
 		Float totalNewTemp = 0F, totalOldTemp = 0F;
 		
 		// Calculate total temperature of the plates
@@ -144,6 +144,6 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 	        }
 		}
 		
-		return totalNewTemp - totalOldTemp;
+		return (totalNewTemp - totalOldTemp) * 100;
 	}
 }

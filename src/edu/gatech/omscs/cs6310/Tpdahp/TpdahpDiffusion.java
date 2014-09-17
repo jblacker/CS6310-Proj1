@@ -113,7 +113,7 @@ public class TpdahpDiffusion extends BaseHeatedPlate {
 	        }
 		}
 		
-		return totalNewTemp - totalOldTemp;
+		return (totalNewTemp - totalOldTemp) * 100;
 	}
 
 }
