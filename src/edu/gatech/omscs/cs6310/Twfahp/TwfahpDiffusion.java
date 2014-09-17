@@ -144,6 +144,6 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 	        }
 		}
 		
-		return (totalNewTemp / totalOldTemp) * 100;
+		return ((totalNewTemp - totalOldTemp) / totalOldTemp) * 100;
 	}
 }
