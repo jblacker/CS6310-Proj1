@@ -1,6 +1,7 @@
 package edu.gatech.omscs.cs6310.Tpfahp;
 
 import edu.gatech.omscs.cs6310.Interfaces.CliDisplay;
+import edu.gatech.omscs.cs6310.Interfaces.CliParser;
 
 public class Demo {
 
@@ -15,8 +16,7 @@ public class Demo {
 		
 		TpfahpDiffusion heatedPlate = new TpfahpDiffusion();
 		
-		heatedPlate.initialize(args);
-		
+		CliParser.initialize(args, heatedPlate);		
 		CliDisplay.displayHeatedPlate(heatedPlate);
 	}
 }
