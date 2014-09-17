@@ -58,7 +58,7 @@ public class TpdahpDiffusion extends BaseHeatedPlate {
 			iterations++;
 			
 			oldPlate = deepCopySwap(newPlate);
-		} while(difference >= MINIMUM_DIFFERENCE && iterations < MAXIMUM_ITERATIONS);
+		} while(difference >= MAX_DIFF_PERCENT && iterations < MAXIMUM_ITERATIONS);
 		
 		this.latticePoints = newPlate;
 		this.lastRunTime = System.nanoTime() - startTime;
@@ -113,7 +113,7 @@ public class TpdahpDiffusion extends BaseHeatedPlate {
 	        }
 		}
 		
-		return totalNewTemp - totalOldTemp;
+		return (totalNewTemp / totalOldTemp) * 100;
 	}
 
 }

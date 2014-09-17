@@ -66,7 +66,7 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 			
 			// Update original plate with updated plate temperatures
 			oldPlate = deepCopySwap(newPlate);
-		} while(difference >= MINIMUM_DIFFERENCE && iterations < MAXIMUM_ITERATIONS);
+		} while(difference >= MAX_DIFF_PERCENT && iterations < MAXIMUM_ITERATIONS);
 		
 		// Set final values
 		this.latticePoints = newPlate;
@@ -144,6 +144,6 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 	        }
 		}
 		
-		return totalNewTemp - totalOldTemp;
+		return (totalNewTemp / totalOldTemp) * 100;
 	}
 }
