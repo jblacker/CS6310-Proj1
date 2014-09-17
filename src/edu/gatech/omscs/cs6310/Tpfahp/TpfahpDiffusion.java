@@ -57,7 +57,7 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 			oldPlate = deepCopySwap(newPlate);
 			iterations++;
 		}
-		while(difference >= MINIMUM_DIFFERENCE || iterations < MAXIMUM_ITERATIONS);
+		while(difference >= MINIMUM_DIFFERENCE && iterations < MAXIMUM_ITERATIONS);
 		
 		this.latticePoints = newPlate;
 		this.lastRunTime = System.nanoTime() - startTime;
