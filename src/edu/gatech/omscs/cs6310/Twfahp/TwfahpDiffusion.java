@@ -13,7 +13,7 @@ import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 public class TwfahpDiffusion implements HeatedPlate {
 
 	/* Maximum number of iterations that can be performed. Used to avoid an infinite loop */
-	private final int MAXIMUM_ITERATIONS = 150;
+	private final int MAXIMUM_ITERATIONS = 150000;
 	
 	/* Difference in temperature signifying the plate temperature has stabilized */
 	private final Float MINIMUM_DIFFERENCE = 0.001F;

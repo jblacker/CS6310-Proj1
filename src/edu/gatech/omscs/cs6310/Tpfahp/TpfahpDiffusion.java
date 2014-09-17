@@ -9,7 +9,7 @@ import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
 public class TpfahpDiffusion implements HeatedPlate {
 	
-	private final int MAXIMUM_ITERATIONS = 15000;
+	private final int MAXIMUM_ITERATIONS = 150000;
 	private final float MINIMUM_DIFFERENCE = 0.001f; 
 	
 	private int dimensions;

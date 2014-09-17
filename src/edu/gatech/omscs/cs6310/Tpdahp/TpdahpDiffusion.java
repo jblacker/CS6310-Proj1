@@ -9,8 +9,8 @@ import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
 public class TpdahpDiffusion implements HeatedPlate {
 
-	private final int MAXIMUM_ITERATIONS = 150;
-	private final double MINIMUM_DIFFERENCE = 0.001d;
+	private final int MAXIMUM_ITERATIONS = 150000;
+	private final double MINIMUM_DIFFERENCE = 0.001f;
 	
 	private int dimension;
 	private int initLeftEdgeTemp;
