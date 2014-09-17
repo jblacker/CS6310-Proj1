@@ -54,101 +54,56 @@ public class TwfahpDiffusion implements HeatedPlate {
 		this.initBottomEdgeTemp = 0;
 	}
 	
-	/**
-	 * Get dimension
-	 */
 	@Override
 	public int getDimension() {
 		return this.dimension;
 	}
-
-	/**
-	 * Set dimension
-	 * @param dimension
-	 * Dimension of the plate
-	 */
+	
 	@Override
 	public void setDimension(int dimension) {
 		this.dimension = dimension;
 	}
-
-	/**
-	 * Get left edge temperature
-	 */
+	
 	@Override
 	public int getLeftEdgeTemp() {
 		return this.initLeftEdgeTemp;
 	}
-
-	/**
-	 * Set left edge temperature
-	 * @param temp
-	 * Temperature of the left edge
-	 */
+	
 	@Override
 	public void setLeftEdgeTemp(int temp) {
 		this.initLeftEdgeTemp = temp;
 	}
-
-	/**
-	 * Get right edge temperature
-	 */
+	
 	@Override
 	public int getRightEdgeTemp() {
 		return this.initRightEdgeTemp;
 	}
-
-	/**
-	 * Set right edge temperature
-	 * @param temp
-	 * Temperature of the right edge
-	 */
+	
 	@Override
 	public void setRightEdgeTemp(int temp) {
 		this.initRightEdgeTemp = temp;
 	}
-
-	/**
-	 * Get top edge temperature
-	 */
+	
 	@Override
 	public int getTopEdgeTemp() {
 		return this.initTopEdgeTemp;
 	}
-
-	/**
-	 * Set top edge temperature
-	 * @param temp
-	 * Temperature of the top edge
-	 */
+	
 	@Override
 	public void setTopEdgeTemp(int temp) {
 		this.initTopEdgeTemp = temp;
 	}
-
-	/**
-	 * Get bottom edge temperature
-	 */
+	
 	@Override
 	public int getBottomEdgeTemp() {
 		return this.initBottomEdgeTemp;
 	}
-
-	/**
-	 * Set bottom edge temperature
-	 * @param temp
-	 * Temperature of the bottom edge
-	 */
+	
 	@Override
 	public void setBottomEdgeTemp(int temp) {
 		this.initBottomEdgeTemp = temp;
 	}
-
-	/**
-	 * Calculate plate temperature diffusion
-	 * @return 
-	 * Returns a List of Lists containing the different points of the plate
-	 */
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<List<Float>> calculateLatticePoints() throws PlateNotInitializedException {
@@ -164,18 +119,12 @@ public class TwfahpDiffusion implements HeatedPlate {
 		
 		return points;
 	}
-
-	/**
-	 * Get time spent running calculation
-	 */
+	
 	@Override
 	public long getCalculationTime() {
 		return this.lastRunTime;
 	}
 	
-	/**
-	 * Get total iterations used running calculation
-	 */
 	@Override
 	public int getIterationsUsed() {
 		return this.lastIterationCount;
