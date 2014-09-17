@@ -12,15 +12,6 @@ public class TpdahpDiffusion extends BaseHeatedPlate {
 	private final int MAXIMUM_ITERATIONS = 150000;
 	private final double MINIMUM_DIFFERENCE = 0.001f;
 	
-	private int dimension;
-	private int initLeftEdgeTemp;
-	private int initRightEdgeTemp;
-	private int initTopEdgeTemp;
-	private int initBottomEdgeTemp;
-	
-	private long lastRunTime;
-	private int lastIterationCount;
-	
 	private double[][] latticePoints;
 	
 	@SuppressWarnings("unchecked")
