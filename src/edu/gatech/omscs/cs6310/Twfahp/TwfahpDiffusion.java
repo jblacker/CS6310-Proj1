@@ -21,16 +21,16 @@ public class TwfahpDiffusion implements HeatedPlate {
 	/* Number of dimensions to split the plate into */
 	private int dimension;
 	
-	/* Intial temperature of the left edge of the plate */
+	/* Initial temperature of the left edge of the plate */
 	private int initLeftEdgeTemp;
 	
-	/* Intial temperature of the right edge of the plate */
+	/* Initial temperature of the right edge of the plate */
 	private int initRightEdgeTemp;
 	
-	/* Intial temperature of the top edge of the plate */
+	/* Initial temperature of the top edge of the plate */
 	private int initTopEdgeTemp;
 	
-	/* Intial temperature of the bottom edge of the plate */
+	/* Initial temperature of the bottom edge of the plate */
 	private int initBottomEdgeTemp;
 	
 	/* Length of time required for plate temperature to stabilize */
