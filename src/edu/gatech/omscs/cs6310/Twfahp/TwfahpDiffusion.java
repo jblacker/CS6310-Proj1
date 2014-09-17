@@ -4,105 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
+import edu.gatech.omscs.cs6310.Interfaces.BaseHeatedPlate;
 import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
 /**
  * Calculate diffusion of temperature on a plate using Floats 
  */
-public class TwfahpDiffusion implements HeatedPlate {
+public class TwfahpDiffusion extends BaseHeatedPlate {
 
 	/* Maximum number of iterations that can be performed. Used to avoid an infinite loop */
-	private final int MAXIMUM_ITERATIONS = 150000;
-	
-	/* Difference in temperature signifying the plate temperature has stabilized */
+	private final int MAXIMUM_ITERATIONS = 150000;	
 	private final Float MINIMUM_DIFFERENCE = 0.001F;
 	
-	/* Number of dimensions to split the plate into */
-	private int dimension;
-	
-	/* Initial temperature of the left edge of the plate */
-	private int initLeftEdgeTemp;
-	
-	/* Initial temperature of the right edge of the plate */
-	private int initRightEdgeTemp;
-	
-	/* Initial temperature of the top edge of the plate */
-	private int initTopEdgeTemp;
-	
-	/* Initial temperature of the bottom edge of the plate */
-	private int initBottomEdgeTemp;
-	
-	/* Length of time required for plate temperature to stabilize */
-	private long lastRunTime;
-	
-	/* Number of iterations required for plate temperature to stabilize */
-	private int lastIterationCount;
-	
-	/* Final temperature of the different points on the plate*/
 	private Float[][] latticePoints;
 	
-	/**
-	 * Default constructor
-	 * Sets initial dimension and temperature values to 0
-	 */
-	public TwfahpDiffusion() {
-		this.dimension = 0;
-		this.initLeftEdgeTemp = 0;
-		this.initRightEdgeTemp = 0;
-		this.initTopEdgeTemp = 0;
-		this.initBottomEdgeTemp = 0;
-	}
-	
-	@Override
-	public int getDimension() {
-		return this.dimension;
-	}
-	
-	@Override
-	public void setDimension(int dimension) {
-		this.dimension = dimension;
-	}
-	
-	@Override
-	public int getLeftEdgeTemp() {
-		return this.initLeftEdgeTemp;
-	}
-	
-	@Override
-	public void setLeftEdgeTemp(int temp) {
-		this.initLeftEdgeTemp = temp;
-	}
-	
-	@Override
-	public int getRightEdgeTemp() {
-		return this.initRightEdgeTemp;
-	}
-	
-	@Override
-	public void setRightEdgeTemp(int temp) {
-		this.initRightEdgeTemp = temp;
-	}
-	
-	@Override
-	public int getTopEdgeTemp() {
-		return this.initTopEdgeTemp;
-	}
-	
-	@Override
-	public void setTopEdgeTemp(int temp) {
-		this.initTopEdgeTemp = temp;
-	}
-	
-	@Override
-	public int getBottomEdgeTemp() {
-		return this.initBottomEdgeTemp;
-	}
-	
-	@Override
-	public void setBottomEdgeTemp(int temp) {
-		this.initBottomEdgeTemp = temp;
-	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -120,15 +35,7 @@ public class TwfahpDiffusion implements HeatedPlate {
 		return points;
 	}
 	
-	@Override
-	public long getCalculationTime() {
-		return this.lastRunTime;
-	}
 	
-	@Override
-	public int getIterationsUsed() {
-		return this.lastIterationCount;
-	}
 	
 	/**
 	 * Calculate the time and iterations required to diffuse heat through a plate
