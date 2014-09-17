@@ -4,75 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
+import edu.gatech.omscs.cs6310.Interfaces.BaseHeatedPlate;
 import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
-public class TpdahpDiffusion implements HeatedPlate {
+public class TpdahpDiffusion extends BaseHeatedPlate {
 
-	private final int MAXIMUM_ITERATIONS = 150;
 	private final double MINIMUM_DIFFERENCE = 0.001d;
-	
-	private int dimension;
-	private int initLeftEdgeTemp;
-	private int initRightEdgeTemp;
-	private int initTopEdgeTemp;
-	private int initBottomEdgeTemp;
-	
-	private long lastRunTime;
-	private int lastIterationCount;
-	
+		
 	private double[][] latticePoints;
 	
-	@Override
-	public int getDimension() {
-		return this.dimension;
-	}
-
-	@Override
-	public void setDimension(int dimension) {
-		this.dimension = dimension;
-	}
-
-	@Override
-	public int getLeftEdgeTemp() {
-		return this.initLeftEdgeTemp;
-	}
-
-	@Override
-	public void setLeftEdgeTemp(int temp) {
-		this.initLeftEdgeTemp = temp;
-	}
-
-	@Override
-	public int getRightEdgeTemp() {
-		return this.initRightEdgeTemp;
-	}
-
-	@Override
-	public void setRightEdgeTemp(int temp) {
-		this.initRightEdgeTemp = temp;
-	}
-
-	@Override
-	public int getTopEdgeTemp() {
-		return this.initTopEdgeTemp;
-	}
-
-	@Override
-	public void setTopEdgeTemp(int temp) {
-		this.initTopEdgeTemp = temp;
-	}
-
-	@Override
-	public int getBottomEdgeTemp() {
-		return this.initBottomEdgeTemp;
-	}
-
-	@Override
-	public void setBottomEdgeTemp(int temp) {
-		this.initBottomEdgeTemp = temp;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<List<Double>> calculateLatticePoints() throws PlateNotInitializedException {
@@ -91,16 +31,6 @@ public class TpdahpDiffusion implements HeatedPlate {
 		}
 		
 		return points;
-	}
-
-	@Override
-	public long getCalculationTime() {
-		return this.lastRunTime;
-	}
-	
-	@Override
-	public int getIterationsUsed() {
-		return this.lastIterationCount;
 	}
 	
 	public void calculateDiffusion() throws PlateNotInitializedException {
