@@ -29,6 +29,7 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 
 import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
+import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 import edu.gatech.omscs.cs6310.Tpdahp.TpdahpDiffusion;
 import edu.gatech.omscs.cs6310.Tpfahp.TpfahpDiffusion;
 import edu.gatech.omscs.cs6310.Twfahp.TwfahpDiffusion;
@@ -37,12 +38,12 @@ public class Demo implements ActionListener {
 
 	private JFrame frame;
 	private JTextField tfDimensions;
-	private JComboBox<?> cbCompType;
+	private JComboBox<ComputationType> cbCompType;
 	private JSpinner spinRight;
 	private JSpinner spinLeft;
 	private JSpinner spinTop;
 	private JSpinner spinBottom;
-	private JPanel displayPanel;
+	private TemperatureGridPanel display;
 
 	/**
 	 * Launch the application.
@@ -245,7 +246,7 @@ public class Demo implements ActionListener {
 		
 		JButton btnRun = new JButton("RUN");
 		btnRun.setActionCommand("Run");
-		btnRun.addActionListener(this);
+		btnRun.addActionListener(this); 
 		GridBagConstraints gbc_btnRun = new GridBagConstraints();
 		gbc_btnRun.gridheight = 2;
 		gbc_btnRun.insets = new Insets(5, 15, 5, 5);
@@ -253,8 +254,6 @@ public class Demo implements ActionListener {
 		gbc_btnRun.gridy = 0;
 		settingPanel.add(btnRun, gbc_btnRun);
 		
-		displayPanel = new JPanel();
-		frame.getContentPane().add(displayPanel, BorderLayout.CENTER);
 	}
 
 	@Override
@@ -280,21 +279,27 @@ public class Demo implements ActionListener {
 		this.spinLeft.setValue(new Integer(0));
 		this.spinTop.setValue(new Integer(0));
 		this.spinBottom.setValue(new Integer(0));
-		if(this.displayPanel.getComponentCount() > 0) {
-			this.displayPanel.removeAll();
+		
+		if(display != null) {
+			this.frame.getContentPane().remove(display);
+			frame.revalidate();
+			frame.repaint();
 		}
 	}
 
 	private void runSimulation() throws InvalidApplicationException {
+		if (display != null)
+			frame.getContentPane().remove(display);
+		
 		HeatedPlate plate;
 		switch((ComputationType)this.cbCompType.getSelectedItem()) {
 		
 		case TPDAHP:
 			plate = new TpdahpDiffusion();
 			break;
-		case TPDOHP:
+		/*case TPDOHP:
 			plate = new TpdohpDiffusion();
-			break;
+			break;*/
 		case TPFAHP:
 			plate = new TpfahpDiffusion();
 			break;
@@ -303,7 +308,6 @@ public class Demo implements ActionListener {
 			break;
 		default:
 			throw new InvalidApplicationException("");
-			break;
 			
 		}
 		
@@ -320,7 +324,14 @@ public class Demo implements ActionListener {
 		plate.setTopEdgeTemp((Integer)this.spinTop.getValue());
 		plate.setRightEdgeTemp((Integer)this.spinRight.getValue());
 		plate.setLeftEdgeTemp((Integer)this.spinLeft.getValue());
-		
-		this.displayPanel.add(new TemperatureGridPanel(plate), BorderLayout.CENTER);
+		try {
+			display = new TemperatureGridPanel(plate);
+			frame.getContentPane().add(display, BorderLayout.CENTER);
+			frame.revalidate();
+			frame.repaint();
+		}
+		catch (PlateNotInitializedException ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage(), "Gallhp", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
