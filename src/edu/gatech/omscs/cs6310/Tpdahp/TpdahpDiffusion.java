@@ -32,9 +32,8 @@ public class TpdahpDiffusion extends BaseHeatedPlate {
 	}
 	
 	public void calculateDiffusion() throws PlateNotInitializedException {
-		if(this.dimension == 0) {
-			throw new PlateNotInitializedException("Dimensions must be set");
-		}
+		if(this.dimension == 0)
+			throw new PlateNotInitializedException("Dimensions must be set");		
 		
 		long startTime = System.nanoTime();
 		
@@ -91,9 +90,8 @@ public class TpdahpDiffusion extends BaseHeatedPlate {
 	}
 		
 	private double[][] deepCopySwap(double[][] original) {
-		if (original == null) {
-			return null;
-		}
+		if (original == null)
+			return null;		
 		
 		final double[][] result = new double[original.length][original[0].length];
 		for(int i = 0; i < original.length; i++) {
@@ -112,6 +110,9 @@ public class TpdahpDiffusion extends BaseHeatedPlate {
 				totalOldTemp += oldPlate[i][j];
 	        }
 		}
+		
+		if (totalOldTemp == 0)
+			return 100;
 		
 		return ((totalNewTemp - totalOldTemp) / totalOldTemp) * 100;
 	}

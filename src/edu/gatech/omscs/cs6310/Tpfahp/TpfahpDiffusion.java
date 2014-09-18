@@ -88,7 +88,8 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 	}
 	
 	private float[][] deepCopySwap(float[][] original) {
-		if (original == null) return null;
+		if (original == null)
+			return null;
 		
 		final float[][] result = new float[original.length][original[0].length];
 		for(int i = 0; i < original.length; i++) {
@@ -107,6 +108,9 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 				totalOldTemp += oldPlate[i][j];
 	        }
 		}
+		
+		if (totalOldTemp == 0)
+			return 100;
 		
 		return ((totalNewTemp - totalOldTemp) / totalOldTemp) * 100;
 	}
