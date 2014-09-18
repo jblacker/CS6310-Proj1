@@ -35,6 +35,7 @@ import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
 import edu.gatech.omscs.cs6310.Interfaces.MemInfo;
 import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 import edu.gatech.omscs.cs6310.Tpdahp.TpdahpDiffusion;
+import edu.gatech.omscs.cs6310.Tpdohp.TpdohpDiffusion;
 import edu.gatech.omscs.cs6310.Tpfahp.TpfahpDiffusion;
 import edu.gatech.omscs.cs6310.Twfahp.TwfahpDiffusion;
 
@@ -320,9 +321,9 @@ public class Demo implements ActionListener {
 			case TPDAHP:
 				plate = new TpdahpDiffusion();
 				break;
-			/*case TPDOHP:
+			case TPDOHP:
 				plate = new TpdohpDiffusion();
-				break;*/
+				break;
 			case TPFAHP:
 				plate = new TpfahpDiffusion();
 				break;
