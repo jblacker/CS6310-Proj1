@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import edu.gatech.omscs.cs6310.Interfaces.BaseHeatedPlate;
-import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
 import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
 public class TpdohpDiffusion extends BaseHeatedPlate {
