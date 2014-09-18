@@ -30,8 +30,6 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 		return points;
 	}
 	
-	
-	
 	/**
 	 * Calculate the time and iterations required to diffuse heat through a plate
 	 * @throws PlateNotInitializedException
@@ -43,8 +41,8 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 		long startTime = System.nanoTime();
 		
 		// Initialize the plates
-		Float[][] newPlate = initializePlate();
-		Float[][] oldPlate = initializePlate();
+		Float[][] newPlate = createAndInitializePlate();
+		Float[][] oldPlate = createAndInitializePlate();
 		
 		Float difference;
 		
@@ -75,10 +73,9 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 	
 	/**
 	 * Initialize the plate based on dimension and edge temperatures
-	 * @return
-	 * Returns a plate as an Array of Floats
+	 * @return Returns a plate as an Array of Floats
 	 */
-	private Float[][] initializePlate() {
+	private Float[][] createAndInitializePlate() {
 		Float[][] plate = new Float[this.dimension + 2][this.dimension + 2];
 		
 		//Initialize Top & Bottom edges
@@ -105,15 +102,14 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 		
 	/**
 	 * Copy the updated plate to the original plate
-	 * @param original
-	 * The original plate
-	 * @return
-	 * Returns a copy of the original plate
+	 * @param original - The original plate
+	 * @return Returns a copy of the original plate
 	 */
 	private Float[][] deepCopySwap(Float[][] original) {
 		if (original == null)
 			return null;		
 		
+		// Copy array
 		final Float[][] result = new Float[original.length][original[0].length];
 		for(int i = 0; i < original.length; i++) {
 			result[i] = Arrays.copyOf(original[i], original[i].length);
@@ -124,12 +120,9 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 
 	/**
 	 * Get the temperature difference between the original and updated plates
-	 * @param newPlate
-	 * The updated plate
-	 * @param oldPlate
-	 * The original plate
-	 * @return
-	 * Returns the difference in total temperature as a Float
+	 * @param newPlate - The updated plate
+	 * @param oldPlate - The original plate
+	 * @return Returns the difference in total temperature as a Float
 	 */
 	private Float getTempDifference(Float[][] newPlate, Float[][] oldPlate) {
 		Float totalNewTemp = 0F, totalOldTemp = 0F;

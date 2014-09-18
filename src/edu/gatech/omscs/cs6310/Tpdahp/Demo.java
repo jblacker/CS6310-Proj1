@@ -14,8 +14,10 @@ public class Demo {
 		
 		TpdahpDiffusion heatedPlate = new TpdahpDiffusion();
 		
-		CliParser.initialize(args, heatedPlate);		
-		CliDisplay.displayHeatedPlate(heatedPlate);		
-	}
+		// Initialize plate with command line arguments
+		CliParser.initialize(args, heatedPlate);
 
+		// Calculate diffusion and display results
+		CliDisplay.displayHeatedPlate(heatedPlate);	
+	}
 }

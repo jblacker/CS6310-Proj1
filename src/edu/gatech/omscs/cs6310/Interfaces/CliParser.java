@@ -7,7 +7,7 @@ public class CliParser {
 	 * @param args
 	 */
 	public static void initialize(String[] args, HeatedPlate plate) {
-		
+		// Loop over arguments and initialize the plate
 		for(int i = 0; i < args.length; i += 2) {
 			int temp;
 			

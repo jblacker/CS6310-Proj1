@@ -70,5 +70,4 @@ public class AboutDialog extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		this.setVisible(false);		
 	}
-
 }

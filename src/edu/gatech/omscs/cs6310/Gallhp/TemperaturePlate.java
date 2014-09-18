@@ -10,9 +10,6 @@ import javax.swing.SwingConstants;
 
 public class TemperaturePlate extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1968715371000403908L;
 
 	/**
@@ -40,5 +37,4 @@ public class TemperaturePlate extends JPanel {
 		
 		return new Color(red, 0, blue);
 	}
-
 }

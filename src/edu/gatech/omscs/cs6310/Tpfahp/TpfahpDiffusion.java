@@ -31,6 +31,10 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 		return points;
 	}
 	
+	/**
+	 * Calculate the time and iterations required to diffuse heat through a plate
+	 * @throws PlateNotInitializedException
+	 */
 	public void calculateDiffusion() throws PlateNotInitializedException {
 		if(this.dimension == 0)
 			throw new PlateNotInitializedException("Dimensions must be set");
@@ -43,6 +47,7 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 		float difference;
 		int iterations = 0;
 		do {
+			// Update plate temperatures 
 			for (int x = 1; x <= dimension; x++) {
 				for (int y = 1; y <= dimension; y++) {
 					newPlate[x][y] = (oldPlate[x + 1][y] + oldPlate[x - 1][y] +
@@ -50,8 +55,10 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 				}
 			}
 			
+			// Calculate temperature difference between original and updated plate
 			difference = this.getTempDifference(newPlate, oldPlate);
 			
+			// Update original plate with updated plate temperatures
 			oldPlate = deepCopySwap(newPlate);
 			iterations++;
 		}
@@ -62,6 +69,10 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 		this.lastIterationCount = iterations;
 	}
 	
+	/**
+	 * Initialize the plate based on dimension and edge temperatures
+	 * @return Returns a plate as an Array of Floats
+	 */
 	private float[][] createAndInitializePlate() {
 		float[][] plate = new float[dimension + 2][dimension + 2];
 		
@@ -87,10 +98,16 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 		return plate;
 	}
 	
+	/**
+	 * Copy the updated plate to the original plate
+	 * @param original - The original plate
+	 * @return Returns a copy of the original plate
+	 */
 	private float[][] deepCopySwap(float[][] original) {
 		if (original == null)
 			return null;
 		
+		// Copy array
 		final float[][] result = new float[original.length][original[0].length];
 		for(int i = 0; i < original.length; i++) {
 			result[i] = Arrays.copyOf(original[i], original[i].length);
@@ -99,9 +116,16 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 		return result;
 	}
 	
+	/**
+	 * Get the temperature difference between the original and updated plates
+	 * @param newPlate - The updated plate
+	 * @param oldPlate - The original plate
+	 * @return Returns the difference in total temperature as a Float
+	 */
 	private float getTempDifference(float[][] newPlate, float[][] oldPlate) {
 		float totalNewTemp = 0f, totalOldTemp = 0f;
 		
+		// Calculate total temperature of plates
 		for (int i = 1; i <= this.dimension; i++) {
 			for (int j = 1; j <= this.dimension; j++) {
 				totalNewTemp += newPlate[i][j];

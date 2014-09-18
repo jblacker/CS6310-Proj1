@@ -30,7 +30,6 @@ import java.awt.event.KeyListener;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
-import javax.swing.DefaultComboBoxModel;
 
 import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
 import edu.gatech.omscs.cs6310.Interfaces.MemInfo;
@@ -317,23 +316,21 @@ public class Demo implements ActionListener {
 			frame.getContentPane().remove(display);
 		
 		HeatedPlate plate;
-		switch((ComputationType)this.cbCompType.getSelectedItem()) {
-		
-		case TPDAHP:
-			plate = new TpdahpDiffusion();
-			break;
-		/*case TPDOHP:
-			plate = new TpdohpDiffusion();
-			break;*/
-		case TPFAHP:
-			plate = new TpfahpDiffusion();
-			break;
-		case TWFAHP:
-			plate = new TwfahpDiffusion();
-			break;
-		default:
-			throw new InvalidApplicationException("Unknown Computation Type");
-			
+		switch((ComputationType)this.cbCompType.getSelectedItem()) {		
+			case TPDAHP:
+				plate = new TpdahpDiffusion();
+				break;
+			/*case TPDOHP:
+				plate = new TpdohpDiffusion();
+				break;*/
+			case TPFAHP:
+				plate = new TpfahpDiffusion();
+				break;
+			case TWFAHP:
+				plate = new TwfahpDiffusion();
+				break;
+			default:
+				throw new InvalidApplicationException("Unknown Computation Type");			
 		}
 		
 		try {

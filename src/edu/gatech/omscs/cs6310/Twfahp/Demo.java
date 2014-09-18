@@ -9,6 +9,7 @@ public class Demo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		// Verify number of arguments
 		if(args.length != 10) {
 			System.out.println("Invalid number of arguments");
 			return;
@@ -16,8 +17,10 @@ public class Demo {
 		
 		TwfahpDiffusion heatedPlate = new TwfahpDiffusion();
 		
-		CliParser.initialize(args, heatedPlate);			
-		CliDisplay.displayHeatedPlate(heatedPlate);		
+		// Initialize plate with command line arguments
+		CliParser.initialize(args, heatedPlate);		
+		
+		// Calculate diffusion and display results
+		CliDisplay.displayHeatedPlate(heatedPlate);
 	}
-
 }

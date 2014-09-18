@@ -1,6 +1,5 @@
 package edu.gatech.omscs.cs6310.Gallhp;
 
-
 import java.awt.GridLayout;
 import java.util.List;
 
@@ -11,9 +10,6 @@ import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
 public class TemperatureGridPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3502023499522607593L;
 
 	/**
@@ -29,5 +25,4 @@ public class TemperatureGridPanel extends JPanel {
 			}
 		}
 	}
-
 }
