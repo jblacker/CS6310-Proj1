@@ -8,30 +8,27 @@ public class CliParser {
 	 */
 	public static void initialize(String[] args, HeatedPlate plate) {
 		// Loop over arguments and initialize the plate
-		for(int i = 0; i < args.length; i += 2) {
+		for(int i = 0; i < args.length; i++) {
 			int temp;
 			
 			try {
-				temp = Integer.parseInt(args[i+1]);
+				temp = Integer.parseInt(args[++i]);
 			}
 			catch(NumberFormatException ex) {
 				throw new NumberFormatException("Expected an integer every other argument, invalid input. Read: " + args[i+1]);
 			}	
 			
-			switch(args[i]) {
-				case "-d":
-				case "-D":
+			if(args[i] == "-d" || args[i] == "-D") {
 					if(temp >= 1) {
 						plate.setDimension(temp);
-						break;
 					}
 					else {
 						System.out.println("Dimension argument must be greater than or equal to 1");
 						System.exit(1);
 						return;
 					}
-				case "-l":
-				case "-L":
+			}
+			else if(args[i] == "-l" || args[i] == "-L") {
 					if(temp > 100 || temp < 0) {
 						System.out.println("Temperature agruments must be between 0 - 100");
 						System.exit(1);
@@ -39,11 +36,9 @@ public class CliParser {
 					}
 					else {
 						plate.setLeftEdgeTemp(temp);
-						break;
-						
 					}
-				case "-r":
-				case "-R":
+			}
+			else if(args[i] == "-r" || args[i] == "-R") {
 					if(temp > 100 || temp < 0) {
 						System.out.println("Temperature agruments must be between 0 - 100");
 						System.exit(1);
@@ -51,23 +46,19 @@ public class CliParser {
 					}
 					else {
 						plate.setRightEdgeTemp(temp);
-						break;
-						
 					}
-				case "-b":
-				case "-B":
+			}
+			else if(args[i] == "-b" || args[i] == "-B") {
 					if(temp > 100 || temp < 0) {
 						System.out.println("Temperature agruments must be between 0 - 100");
 						System.exit(1);
 						return;
 					}
 					else {
-						plate.setBottomEdgeTemp(temp);
-						break;
-						
+						plate.setBottomEdgeTemp(temp);						
 					}
-				case "-t":
-				case "-T":
+			}
+			else if(args[i] == "-t" || args[i] == "-T") {
 					if(temp > 100 || temp < 0) {
 						System.out.println("Temperature agruments must be between 0 - 100");
 						System.exit(1);
@@ -75,7 +66,6 @@ public class CliParser {
 					}
 					else {
 						plate.setTopEdgeTemp(temp);
-						break;
 					}
 			}
 		}
