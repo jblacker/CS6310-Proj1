@@ -43,7 +43,7 @@ public class Demo implements ActionListener {
 
 	private JFrame frame;
 	private JTextField tfDimensions;
-	private JComboBox<ComputationType> cbCompType;
+	private JComboBox cbCompType;
 	private JSpinner spinRight;
 	private JSpinner spinLeft;
 	private JSpinner spinTop;
@@ -139,7 +139,7 @@ public class Demo implements ActionListener {
 		gbc_lblComputationType.gridy = 0;
 		settingPanel.add(lblComputationType, gbc_lblComputationType);
 		
-		cbCompType = new JComboBox<ComputationType>(ComputationType.values());
+		cbCompType = new JComboBox(ComputationType.values());
 		GridBagConstraints gbc_cbCompType = new GridBagConstraints();
 		gbc_cbCompType.gridwidth = 2;
 		gbc_cbCompType.insets = new Insets(5, 5, 5, 5);
@@ -307,7 +307,7 @@ public class Demo implements ActionListener {
 		
 		if(display != null) {
 			this.frame.getContentPane().remove(display);
-			frame.revalidate();
+			frame.invalidate();
 			frame.repaint();
 		}
 	}
@@ -353,7 +353,7 @@ public class Demo implements ActionListener {
 			this.lblCompletionTime.setText(String.format("Calculation Time: %d ns", plate.getCalculationTime()));
 			this.lblMemoryUsage.setText(String.format("Memory Usage: %d MB", MemInfo.getCurrentMemoryUsage()));
 			frame.getContentPane().add(display, BorderLayout.CENTER);
-			frame.revalidate();
+			frame.invalidate();
 			frame.repaint();
 		}
 		catch (PlateNotInitializedException ex) {
