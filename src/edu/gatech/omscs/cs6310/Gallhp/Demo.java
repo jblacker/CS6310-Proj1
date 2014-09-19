@@ -15,6 +15,7 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
+import java.awt.Component;
 import java.awt.Dialog.ModalityType;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -26,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Vector;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -81,7 +83,6 @@ public class Demo implements ActionListener {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		BorderLayout borderLayout = (BorderLayout) frame.getContentPane().getLayout();
 		frame.setBounds(100, 100, 600, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -276,6 +277,17 @@ public class Demo implements ActionListener {
 		
 		lblMemoryUsage = new JLabel("Memory Usage: - MB");
 		metricsPanel.add(lblMemoryUsage);
+		
+		//set focus traversal
+		Vector<Component> focusOrder = new Vector<Component>(7);
+		focusOrder.add(cbCompType);
+		focusOrder.add(tfDimensions);
+		focusOrder.add(spinLeft);
+		focusOrder.add(spinRight);
+		focusOrder.add(spinTop);
+		focusOrder.add(spinBottom);
+		focusOrder.add(btnRun);
+		frame.setFocusTraversalPolicy(new GallhpFocusTraversalPolicy(focusOrder));
 	}
 
 	@Override
