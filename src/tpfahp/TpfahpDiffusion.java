@@ -80,14 +80,14 @@ public class TpfahpDiffusion extends BaseHeatedPlate {
 		
 		//Initialize Top & bottom
 		for(int i = 0; i < dimension + 1; i++) {
-			plate[i][0] = initTopEdgeTemp;
-			plate[i][dimension + 1] = initBottomEdgeTemp;
+			plate[0][i] = initTopEdgeTemp;
+			plate[dimension + 1][i] = initBottomEdgeTemp;
 		}
 		
 		//Initialize Left & Right
 		for(int i = 0; i < dimension + 1; i++) {
-			plate[0][i] = initLeftEdgeTemp;
-			plate[dimension + 1][i] = initRightEdgeTemp;
+			plate[i][0] = initLeftEdgeTemp;
+			plate[i][dimension + 1] = initRightEdgeTemp;
 		}
 		
 		//Initialize Inner Plate
