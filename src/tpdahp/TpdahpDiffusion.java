@@ -1,31 +1,34 @@
-package edu.gatech.omscs.cs6310.Twfahp;
+package tpdahp;
+
+import interfaces.BaseHeatedPlate;
+import interfaces.PlateNotInitializedException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.gatech.omscs.cs6310.Interfaces.BaseHeatedPlate;
-import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
 
-/**
- * Calculate diffusion of temperature on a plate using Floats 
- */
-public class TwfahpDiffusion extends BaseHeatedPlate {
+
+public class TpdahpDiffusion extends BaseHeatedPlate {
 	
-	private Float[][] latticePoints;	
+	private double[][] latticePoints;
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<List<Float>> calculateLatticePoints() throws PlateNotInitializedException {
-		// Calculate the diffusion for the heated plate
+	public List<List<Double>> calculateLatticePoints() throws PlateNotInitializedException {
 		this.calculateDiffusion();
 		
-		List<List<Float>> points = new ArrayList<List<Float>>();
+		List<List<Double>> points = new ArrayList<List<Double>>();
 		
-		// Convert latticePoints array to a List of Lists
-		for (Float[] axis : this.latticePoints) {
-				points.add(Arrays.asList(axis));
+		for (int i = 0; i < this.latticePoints.length; i++) {
+			List<Double> temp = new ArrayList<Double>(this.latticePoints[i].length);
+			
+			for(double d : this.latticePoints[i]) {
+				temp.add(new Double(d));
 			}
+			
+			points.add(temp);
+		}
 		
 		return points;
 	}
@@ -40,11 +43,10 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 		
 		long startTime = System.nanoTime();
 		
-		// Initialize the plates
-		Float[][] newPlate = createAndInitializePlate();
-		Float[][] oldPlate = createAndInitializePlate();
+		double[][] newPlate = createAndInitializePlate();
+		double[][] oldPlate = createAndInitializePlate();
 		
-		Float difference;
+		double difference;
 		
 		int iterations = 0;
 		
@@ -65,7 +67,6 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 			oldPlate = deepCopySwap(newPlate);
 		} while(difference >= MAX_DIFF_PERCENT && iterations < MAXIMUM_ITERATIONS);
 		
-		// Set final values
 		this.latticePoints = newPlate;
 		this.lastRunTime = System.nanoTime() - startTime;
 		this.lastIterationCount = iterations;
@@ -75,25 +76,25 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 	 * Initialize the plate based on dimension and edge temperatures
 	 * @return Returns a plate as an Array of Floats
 	 */
-	private Float[][] createAndInitializePlate() {
-		Float[][] plate = new Float[this.dimension + 2][this.dimension + 2];
+	private double[][] createAndInitializePlate() {
+		double[][] plate = new double[this.dimension + 2][this.dimension + 2];
 		
 		//Initialize Top & Bottom edges
 		for(int i = 1; i <= this.dimension; i++) {
-			plate[0][i] = (float) this.initTopEdgeTemp;
-			plate[this.dimension + 1][i] = (float) this.initBottomEdgeTemp;
+			plate[0][i] = this.initTopEdgeTemp;
+			plate[this.dimension + 1][i] = this.initBottomEdgeTemp;
 		}
 		
 		//Initialize Left & Right edges
 		for(int i = 1; i <= this.dimension; i++) {
-			plate[i][0] = (float) this.initLeftEdgeTemp;
-			plate[i][this.dimension + 1] = (float) this.initRightEdgeTemp;
+			plate[i][0] = this.initLeftEdgeTemp;
+			plate[i][this.dimension + 1] = this.initRightEdgeTemp;
 		}
 		
 		// Initialize Plate
 		for(int i = 1; i <= this.dimension; i++) {
 			for (int j = 1; j <= this.dimension; j++) {
-				plate[i][j] = 0F;
+				plate[i][j] = 0d;
 			}
 		}
 				
@@ -105,12 +106,12 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 	 * @param original - The original plate
 	 * @return Returns a copy of the original plate
 	 */
-	private Float[][] deepCopySwap(Float[][] original) {
+	private double[][] deepCopySwap(double[][] original) {
 		if (original == null)
 			return null;		
 		
 		// Copy array
-		final Float[][] result = new Float[original.length][original[0].length];
+		final double[][] result = new double[original.length][original[0].length];
 		for(int i = 0; i < original.length; i++) {
 			result[i] = Arrays.copyOf(original[i], original[i].length);
 		}		
@@ -124,10 +125,10 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 	 * @param oldPlate - The original plate
 	 * @return Returns the difference in total temperature as a Float
 	 */
-	private Float getTempDifference(Float[][] newPlate, Float[][] oldPlate) {
-		Float totalNewTemp = 0F, totalOldTemp = 0F;
+	private double getTempDifference(double[][] newPlate, double[][] oldPlate) {
+		double totalNewTemp = 0d, totalOldTemp = 0d;
 		
-		// Calculate total temperature of the plates
+		// Calculate total temperature of plates
 		for (int i = 1; i <= this.dimension; i++) {
 			for (int j = 1; j <= this.dimension; j++) {
 				totalNewTemp += newPlate[i][j];
@@ -136,7 +137,7 @@ public class TwfahpDiffusion extends BaseHeatedPlate {
 		}
 		
 		if (totalOldTemp == 0)
-			return 100F;
+			return 100;
 		
 		return ((totalNewTemp - totalOldTemp) / totalOldTemp) * 100;
 	}

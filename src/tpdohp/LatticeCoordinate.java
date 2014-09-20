@@ -1,4 +1,4 @@
-package edu.gatech.omscs.cs6310.Tpdohp;
+package tpdohp;
 
 public class LatticeCoordinate {
 	public int x;

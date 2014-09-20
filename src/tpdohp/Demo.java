@@ -1,7 +1,7 @@
-package edu.gatech.omscs.cs6310.Tpdohp;
+package tpdohp;
 
-import edu.gatech.omscs.cs6310.Interfaces.CliDisplay;
-import edu.gatech.omscs.cs6310.Interfaces.CliParser;
+import interfaces.CliDisplay;
+import interfaces.CliParser;
 
 public class Demo {
 

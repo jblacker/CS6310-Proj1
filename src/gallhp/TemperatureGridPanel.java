@@ -1,12 +1,14 @@
-package edu.gatech.omscs.cs6310.Gallhp;
+package gallhp;
+
+import interfaces.HeatedPlate;
+import interfaces.PlateNotInitializedException;
 
 import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JPanel;
 
-import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
-import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
+
 
 public class TemperatureGridPanel extends JPanel {
 

@@ -1,4 +1,8 @@
-package edu.gatech.omscs.cs6310.Gallhp;
+package gallhp;
+
+import interfaces.HeatedPlate;
+import interfaces.MemInfo;
+import interfaces.PlateNotInitializedException;
 
 import java.awt.EventQueue;
 
@@ -33,13 +37,12 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 
-import edu.gatech.omscs.cs6310.Interfaces.HeatedPlate;
-import edu.gatech.omscs.cs6310.Interfaces.MemInfo;
-import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
-import edu.gatech.omscs.cs6310.Tpdahp.TpdahpDiffusion;
-import edu.gatech.omscs.cs6310.Tpdohp.TpdohpDiffusion;
-import edu.gatech.omscs.cs6310.Tpfahp.TpfahpDiffusion;
-import edu.gatech.omscs.cs6310.Twfahp.TwfahpDiffusion;
+import tpdahp.TpdahpDiffusion;
+import tpdohp.TpdohpDiffusion;
+import tpfahp.TpfahpDiffusion;
+import twfahp.TwfahpDiffusion;
+
+
 
 public class Demo implements ActionListener {
 

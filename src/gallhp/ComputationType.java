@@ -1,4 +1,4 @@
-package edu.gatech.omscs.cs6310.Gallhp;
+package gallhp;
 
 public enum ComputationType {
 	TPDAHP,

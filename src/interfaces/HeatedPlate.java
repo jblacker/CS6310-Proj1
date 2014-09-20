@@ -1,4 +1,4 @@
-package edu.gatech.omscs.cs6310.Interfaces;
+package interfaces;
 
 import java.util.List;
 

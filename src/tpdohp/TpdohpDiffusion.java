@@ -1,11 +1,13 @@
-package edu.gatech.omscs.cs6310.Tpdohp;
+package tpdohp;
+
+import interfaces.BaseHeatedPlate;
+import interfaces.PlateNotInitializedException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import edu.gatech.omscs.cs6310.Interfaces.BaseHeatedPlate;
-import edu.gatech.omscs.cs6310.Interfaces.PlateNotInitializedException;
+
 
 public class TpdohpDiffusion extends BaseHeatedPlate {
 	private HashMap<LatticeCoordinate, LatticePoint> plate;

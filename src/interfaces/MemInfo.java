@@ -1,4 +1,4 @@
-package edu.gatech.omscs.cs6310.Interfaces;
+package interfaces;
 
 public class MemInfo {
 	private static final long MEGABYTE = 1024L * 1024L;
