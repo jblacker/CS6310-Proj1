@@ -4,13 +4,14 @@ import interfaces.BaseHeatedPlate;
 import interfaces.PlateNotInitializedException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 
 
 public class TpdohpDiffusion extends BaseHeatedPlate {
-	private HashMap<LatticeCoordinate, LatticePoint> plate;
+	private ArrayList<ArrayList<LatticePoint>> plate;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -18,19 +19,11 @@ public class TpdohpDiffusion extends BaseHeatedPlate {
 		this.calculateDiffusion();
 		
 		List<List<Double>> points = new ArrayList<List<Double>>();
-		LatticeCoordinate coordinate;
+		
 		for(int i = 0; i <= this.dimension + 1; i++) {
 			List<Double> innerPoints = new ArrayList<Double>();
 			for (int j = 0; j <= this.dimension + 1; j++) {
-				coordinate = new LatticeCoordinate(i, j);
-				if (this.plate.get(coordinate) != null)
-				{
-					innerPoints.add(this.plate.get(coordinate).temperature);
-				}
-				else
-				{
-					innerPoints.add(0d);
-				}
+				innerPoints.add(this.plate.get(i).get(j).temperature);
 			}
 			points.add(innerPoints);
 		}
@@ -51,31 +44,15 @@ public class TpdohpDiffusion extends BaseHeatedPlate {
 		int iterations = 0;
 		double difference = 0;
 		LatticePoint point;
-		LatticePoint point1;
-		LatticePoint point2;
-		LatticePoint point3;
-		LatticePoint point4;
-		LatticeCoordinate coordinate;
 		
 		do {
 			for (int x = 1; x <= this.dimension; x++) {
 				for (int y = 1; y <= this.dimension; y++) {
-					coordinate = new LatticeCoordinate(x, y);
-					point = this.plate.get(coordinate);
-					point1 = this.plate.get(new LatticeCoordinate
-							(x + 1, y));
-					point2 = this.plate.get(new LatticeCoordinate
-							(x - 1, y));
-					point3 = this.plate.get(new LatticeCoordinate
-							(x, y + 1));
-					point4 = this.plate.get(new LatticeCoordinate
-							(x, y - 1));
-					
-					if (point != null && point1 != null && point2 != null && point3 != null && point4 != null)
-					{
-						point.newTemperature = (point1.temperature + point2.temperature +
-							point3.temperature + point4.temperature) / 4d;
-					}
+					point = this.plate.get(x).get(y);
+					point.newTemperature = (this.plate.get(x + 1).get(y).temperature +
+							this.plate.get(x - 1).get(y).temperature +
+							this.plate.get(x).get(y + 1).temperature +
+							this.plate.get(x).get(y - 1).temperature) / 4d;
 				}
 			}
 			difference = getTempDifference();
@@ -90,40 +67,58 @@ public class TpdohpDiffusion extends BaseHeatedPlate {
 	
 	private void createAndInitializePlate()
 	{
-		this.plate = new HashMap<LatticeCoordinate, LatticePoint>();
-		for(int i = 0; i <= this.dimension + 1; i++) {
-			this.plate.put(new LatticeCoordinate(0, i),
-					new LatticePoint(this.initTopEdgeTemp));
-			this.plate.put(new LatticeCoordinate(this.dimension + 1, i),
-					new LatticePoint(this.initBottomEdgeTemp));
-		}
-		
-		for(int i = 0; i <= this.dimension + 1; i++) {
-			this.plate.put(new LatticeCoordinate(i, 0),
-					new LatticePoint(this.initLeftEdgeTemp));
-			this.plate.put(new LatticeCoordinate(i, this.dimension + 1),
-					new LatticePoint(this.initLeftEdgeTemp));
-		}
-		
-		for(int i = 1; i <= this.dimension; i++) {
-			for (int j = 1; j <= this.dimension; j++) {
-				this.plate.put(new LatticeCoordinate(i, j),
-						new LatticePoint());
+		this.plate = new ArrayList<ArrayList<LatticePoint>>();
+
+		ArrayList<LatticePoint> innerList;
+		for(int i = 0; i <= this.dimension + 1; i++) 
+		{
+			innerList = new ArrayList<LatticePoint>();
+			if (i >= 1 && i <= this.dimension)
+			{
+				for (int j = 0; j <= this.dimension + 1; j++) {
+					if (j == 0)
+					{
+						//Set left points
+						innerList.add(j, new LatticePoint(this.initLeftEdgeTemp));
+					}
+					else if (j == this.dimension + 1)
+					{
+						//Set right points
+						innerList.add(j, new LatticePoint(this.initRightEdgeTemp));
+					}
+					else
+					{
+						//Set inner points
+						innerList.add(j, new LatticePoint());
+					}
+				}
 			}
+			else if (i == 0)
+			{
+				//Set top points
+				for (int j = 0; j <= this.dimension + 1; j++)
+				{
+					innerList.add(j, new LatticePoint(this.initTopEdgeTemp));
+				}
+			}
+			else if (i == this.dimension + 1)
+			{
+				//Set bottom points
+				for (int j = 0; j <= this.dimension + 1; j++)
+				{
+					innerList.add(new LatticePoint(this.initBottomEdgeTemp));
+				}
+			}
+			this.plate.add(i, innerList);
 		}
 	}
 	
 	private void setPlateTemperature()
 	{
-		LatticeCoordinate coordinate;
 		for(int i = 1; i <= this.dimension; i++) {
 			for (int j = 1; j <= this.dimension; j++) {
-				coordinate = new LatticeCoordinate(i, j);
-				if (this.plate.get(coordinate) != null)
-				{
-					this.plate.get(coordinate).temperature = 
-						this.plate.get(coordinate).newTemperature;
-				}
+				this.plate.get(i).get(j).temperature =
+						this.plate.get(i).get(j).newTemperature;
 			}
 		}
 	}
@@ -134,7 +129,7 @@ public class TpdohpDiffusion extends BaseHeatedPlate {
 		LatticePoint point;
 		for (int i = 1; i <= this.dimension; i++) {
 			for (int j = 1; j <= this.dimension; j++) {
-				point = this.plate.get(new LatticeCoordinate(i, j));
+				point = this.plate.get(i).get(j);
 				totalNewTemp += point.newTemperature;
 				totalOldTemp += point.temperature;
 	        }
