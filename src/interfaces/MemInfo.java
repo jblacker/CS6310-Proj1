@@ -1,7 +1,7 @@
 package interfaces;
 
 public class MemInfo {
-	private static final long MEGABYTE = 1024L * 1024L;
+	private static final long KILOBYTE = 1024L;
 	
 	/**
 	 * Convert bytes to Megabytes
@@ -9,7 +9,7 @@ public class MemInfo {
 	 * @return Converted number of Megabytes
 	 */
 	private static long bytesToMegaBytes(long bytes) {
-		return bytes / MEGABYTE;
+		return bytes / KILOBYTE;
 	}
 	
 	/**

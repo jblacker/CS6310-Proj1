@@ -278,7 +278,7 @@ public class Demo implements ActionListener {
 		lblIterationCount.setHorizontalTextPosition(SwingConstants.CENTER);
 		metricsPanel.add(lblIterationCount);
 		
-		lblMemoryUsage = new JLabel("Memory Usage: - MB");
+		lblMemoryUsage = new JLabel("Memory Usage: - KB");
 		metricsPanel.add(lblMemoryUsage);
 		
 		//set focus traversal
@@ -318,7 +318,7 @@ public class Demo implements ActionListener {
 		this.spinBottom.setValue(new Integer(0));
 		this.lblCompletionTime.setText("Calculation Time: - ns");
 		this.lblIterationCount.setText("Iterations Used: -");
-		this.lblMemoryUsage.setText("Memory Usage: - MB");
+		this.lblMemoryUsage.setText("Memory Usage: - KB");
 		
 		if(display != null) {
 			this.frame.getContentPane().remove(display);
@@ -366,7 +366,7 @@ public class Demo implements ActionListener {
 			display = new TemperatureGridPanel(plate);
 			this.lblIterationCount.setText(String.format("Iterations Used: %d", plate.getIterationsUsed()));
 			this.lblCompletionTime.setText(String.format("Calculation Time: %d ns", plate.getCalculationTime()));
-			this.lblMemoryUsage.setText(String.format("Memory Usage: %d MB", MemInfo.getCurrentMemoryUsage()));
+			this.lblMemoryUsage.setText(String.format("Memory Usage: %d KB", MemInfo.getCurrentMemoryUsage()));
 			frame.getContentPane().add(display, BorderLayout.CENTER);
 			frame.invalidate();
 			frame.repaint();

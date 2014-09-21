@@ -26,7 +26,7 @@ public class CliDisplay {
 			System.out.println("");
 			System.out.format("Calculation Time: %d ns %n", plate.getCalculationTime());
 			System.out.format("Iterations Used: %d%n", plate.getIterationsUsed());
-			System.out.format("Memory Usage: %d MB %n", MemInfo.getCurrentMemoryUsage());
+			System.out.format("Memory Usage: %d KB %n", MemInfo.getCurrentMemoryUsage());
 		}
 		catch(PlateNotInitializedException ex) {
 			System.out.println("Heated Plate not initialized properly.");
