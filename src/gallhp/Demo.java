@@ -351,11 +351,20 @@ public class Demo implements ActionListener {
 		
 		try {
 			int dim = Integer.parseInt(this.tfDimensions.getText().trim());
-			plate.setDimension(dim);
+			if(dim > 100) {
+				JOptionPane.showMessageDialog(null, 
+						"Please enter a value below 100.  For values over 100, please use the command line version of the calculation type.",
+						"Gallhp", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			else {
+				plate.setDimension(dim);
+			}
 		}
 		catch(NumberFormatException ex) {
 			JOptionPane.showMessageDialog(null, "Invalid dimensions entered",
 					"Gallhp",JOptionPane.WARNING_MESSAGE);
+			return;
 		}
 		
 		plate.setBottomEdgeTemp((Integer)this.spinBottom.getValue());
